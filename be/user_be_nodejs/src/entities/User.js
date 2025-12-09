@@ -11,7 +11,7 @@ module.exports = new EntitySchema({
         },
         name: {
             type: 'varchar',
-            length: 100,
+            length: 400,
         },
         age: {
             type: 'int',
@@ -20,6 +20,7 @@ module.exports = new EntitySchema({
         email: {
             type: 'varchar',
             length: 100,
+            unique: true,
         },
         birthDate: {
             type: 'date',
