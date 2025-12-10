@@ -21,6 +21,7 @@
     ├── config/             # 配置文件目录
     │   └── db.js           # 数据库连接配置
     ├── middleware/         # 自定义中间件
+    ├── swagger/            # swager相关配置
     ├── utils/              # 工具函数
     └── app.js              # 应用入口文件
  └── server.js              # 启动服务
