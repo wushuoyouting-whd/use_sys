@@ -1,0 +1,51 @@
+/**
+ * 用户列表组件样式
+ */
+
+.user-list {
+  width: 100%;
+}
+
+.list-card {
+  background: var(--color-bg-primary);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.search-form {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.pagination {
+  margin-top: var(--spacing-md);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 表格样式增强 */
+:deep(.el-table) {
+  border-radius: var(--radius-md);
+}
+
+:deep(.el-table th) {
+  font-weight: 500;
+  background-color: #f5f8fc;
+}
+
+:deep(.el-table--striped .el-table__body tr.el-table__row--striped td) {
+  background-color: #fafbfc;
+}
+

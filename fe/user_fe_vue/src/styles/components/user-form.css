@@ -1,0 +1,19 @@
+/**
+ * 用户表单组件样式
+ */
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
+
+:deep(.el-form-item__label) {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+:deep(.el-dialog__body) {
+  padding: var(--spacing-lg);
+}
+

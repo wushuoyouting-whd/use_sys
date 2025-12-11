@@ -1,0 +1,38 @@
+/**
+ * App 组件样式
+ */
+
+.app-container {
+  min-height: 100vh;
+}
+
+.app-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  height: var(--header-height);
+}
+
+.header-content {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.header-content h1 {
+  font-size: var(--font-size-xxl);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.app-main {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
