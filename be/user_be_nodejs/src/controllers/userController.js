@@ -1,5 +1,5 @@
 const userService = require('../services/userService');
-const { success, error } = require('../utils/ApiResponse');
+const { success } = require('../utils/ApiResponse');
 
 exports.list = async (req, res, next) => {
     try {
@@ -16,6 +16,9 @@ exports.list = async (req, res, next) => {
         }
         if (req.query.age) {
             conditions.age = parseInt(req.query.age);
+        }
+        if (req.query.beType) {
+            conditions.beType = req.query.beType;
         }
         if (req.query.startDate) {
             conditions.startDate = req.query.startDate;

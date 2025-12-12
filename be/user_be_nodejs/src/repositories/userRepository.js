@@ -1,6 +1,5 @@
 const AppDataSource = require('../config/db');
 const User = require('../entities/User');
-const {Like} = require("typeorm");
 
 const repo = AppDataSource.getRepository(User);
 
@@ -22,12 +21,16 @@ exports.findWithPageAndCount = async (page=1, limit = 10 ,conditions = {}) => {
     if (conditions.age) {
         query = query.andWhere('age = :age', { age: conditions.age });
     }
+    if (conditions.beType) {
+        query = query.andWhere('be_type = :beType', { beType: conditions.beType });
+    }
     if (conditions.startDate) {
         query = query.andWhere('birth_date >= :startDate', { startDate: conditions.startDate });
     }
     if (conditions.endDate) {
         query = query.andWhere('birth_date <= :endDate', { endDate: conditions.endDate });
     }
+    query.orderBy("updated_at","DESC");
 
     const [data,total] = await query.skip(skip).take(limitNum).getManyAndCount();
     return {

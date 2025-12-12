@@ -1,6 +1,6 @@
 const AppError = require('../utils/AppError');
 const userRepo = require('../repositories/userRepository');
-
+require('dotenv').config()
 
 exports.getUsers = async () => userRepo.findAll();
 
@@ -17,6 +17,8 @@ exports.getUserWithPageAndCount = async (page,limit,conditions={}) => {
 exports.createUser = async (dto) => {
     if (await userRepo.findByEmail(dto.email))
         throw new AppError(409, 'Email already exists');
+    dto.beType = process.env.BE_TYPE;
+
     return userRepo.create(dto);
 };
 

@@ -18,7 +18,7 @@
               v-model="searchForm.name"
               placeholder="请输入姓名"
               clearable
-              style="width: 180px"
+              style="width: 150px"
             />
           </el-form-item>
           <el-form-item label="邮箱">
@@ -26,7 +26,7 @@
               v-model="searchForm.email"
               placeholder="请输入邮箱"
               clearable
-              style="width: 180px"
+              style="width: 150px"
             />
           </el-form-item>
           <el-form-item label="年龄">
@@ -37,6 +37,20 @@
               placeholder="年龄"
               style="width: 120px"
             />
+          </el-form-item>
+          <el-form-item label="类型">
+            <el-select
+              v-model="searchForm.beType"
+              placeholder="请选择类型"
+              clearable
+              style="width: 120px"
+            >
+              <el-option
+                v-for="item in beTypeOptions"
+                :key="item.value"
+                :value="item.value"
+              />
+            </el-select>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" :icon="Search" @click="handleSearch">
@@ -55,19 +69,29 @@
         style="width: 100%"
         :header-cell-style="{ background: '#f5f8fc', color: '#2c3e50' }"
       >
-        <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="name" label="姓名" width="120" />
-        <el-table-column prop="age" label="年龄" width="80" />
+        <el-table-column prop="id" label="ID" width="40" />
+        <el-table-column prop="name" label="姓名" width="100" />
+        <el-table-column prop="age" label="年龄" width="60" />
         <el-table-column prop="birthDate" label="出生日期" width="120">
-
           <template #default="{ row }">
             {{ formatDate(row.birthDate) }}
           </template>
         </el-table-column>
-        <el-table-column prop="email" label="邮箱" width="200" />
+        <el-table-column prop="email" label="邮箱" width="150" />
+        <el-table-column prop="beType" label="后端类型" width="100">
+          <template #default="{ row }">
+            <span v-if="row.beType">{{ formatBeType(row.beType) }}</span>
+            <span v-else class="text-placeholder">-</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="createdAt" label="创建时间" width="180">
           <template #default="{ row }">
             {{ formatDateTime(row.createdAt) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="updatedAt" label="修改时间" width="180">
+          <template #default="{ row }">
+            {{ formatDateTime(row.updatedAt) }}
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180" fixed="right">
@@ -132,8 +156,18 @@ const isEdit = ref(false)
 const searchForm = reactive({
   name: '',
   email: '',
-  age: null
+  age: null,
+  beType: ''
 })
+
+// 后端类型选项
+const beTypeOptions = [
+  { value: 'Node.js' },
+  { value: 'Java' },
+  { value: 'Go'},
+  { value: 'Rust'},
+  { value: 'Python' }
+]
 
 const pagination = reactive({
   page: 1,
@@ -211,6 +245,7 @@ const handleReset = () => {
   searchForm.name = ''
   searchForm.email = ''
   searchForm.age = null
+  searchForm.beType = ''
   pagination.page = 1
   fetchUserList()
 }
@@ -274,6 +309,24 @@ const handleFormSuccess = () => {
   fetchUserList()
 }
 
+// 格式化后端类型
+const formatBeType = (type) => {
+  if (!type) return '-'
+  
+  const typeMap = {
+    'nodejs': 'Node.js',
+    'node.js': 'Node.js',
+    'node': 'Node.js',
+    'java': 'Java',
+    'go': 'Go',
+    'rust': 'Rust',
+    'python': 'Python'
+  }
+  
+  const lowerType = type.toLowerCase()
+  return typeMap[lowerType] || type
+}
+
 // 格式化日期
 const formatDate = (date) => {
   if (!date) return '-'
@@ -293,5 +346,9 @@ onMounted(() => {
 
 <style scoped>
 @import '../styles/components/user-list.css';
+
+.text-placeholder {
+  color: var(--color-text-secondary, #909399);
+}
 </style>
 

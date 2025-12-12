@@ -30,6 +30,12 @@ module.exports = new EntitySchema({
             name: 'birth_date',
             default: () => 'CURRENT_DATE',
         },
+        beType: {
+            type: 'varchar',
+            name: 'be_type',
+            length: 100,
+            nullable: true,
+        },
         createdAt: {
             type: 'timestamptz',
             name: 'created_at',
