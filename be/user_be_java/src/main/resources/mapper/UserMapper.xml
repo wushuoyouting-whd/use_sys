@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.user.mapper.UserMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.user.domain.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="birth_date" property="birthDate" jdbcType="DATE"/>
+        <result column="be_type" property="beType" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, name, age, email, birth_date, be_type, 
+        created_at::timestamp as created_at, 
+        updated_at::timestamp as updated_at
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="Where_Clause">
+        <where>
+            <if test="name != null and name != ''">
+                AND name ILIKE '%' || #{name} || '%'
+            </if>
+            <if test="email != null and email != ''">
+                AND email ILIKE '%' || #{email} || '%'
+            </if>
+            <if test="age != null">
+                AND age = #{age}
+            </if>
+            <if test="beType != null and beType != ''">
+                AND be_type = #{beType}
+            </if>
+            <if test="startDate != null">
+                AND birth_date >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND birth_date &lt;= #{endDate}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM "user"
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据邮箱查询 -->
+    <select id="selectByEmail" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM "user"
+        WHERE email = #{email}
+        LIMIT 1
+    </select>
+
+    <!-- 检查邮箱是否存在 -->
+    <select id="existsByEmail" resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM "user"
+        WHERE email = #{email}
+    </select>
+
+    <!-- 分页查询用户列表 -->
+    <select id="selectUsersWithConditions" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM "user"
+        <include refid="Where_Clause"/>
+        ORDER BY updated_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 统计符合条件的用户总数 -->
+    <select id="countUsersWithConditions" resultType="long">
+        SELECT COUNT(1)
+        FROM "user"
+        <include refid="Where_Clause"/>
+    </select>
+
+    <!-- 插入用户 -->
+    <insert id="insert" parameterType="com.user.domain.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO "user" (
+            name, age, email, birth_date, be_type, created_at, updated_at
+        ) VALUES (
+            #{name}, #{age}, #{email}, #{birthDate}, #{beType}, 
+            COALESCE(#{createdAt}, CURRENT_TIMESTAMP), 
+            COALESCE(#{updatedAt}, CURRENT_TIMESTAMP)
+        )
+    </insert>
+
+    <!-- 更新用户 -->
+    <update id="updateById" parameterType="com.user.domain.User">
+        UPDATE "user"
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="birthDate != null">birth_date = #{birthDate},</if>
+            <if test="beType != null">be_type = #{beType},</if>
+            updated_at = CURRENT_TIMESTAMP
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID删除用户 -->
+    <delete id="deleteById">
+        DELETE FROM "user"
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
+

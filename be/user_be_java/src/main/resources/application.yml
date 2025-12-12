@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: user-be-java
+  
+  # 数据库配置
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user_sys?stringtype=unspecified
+    username: owen
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  
+  # MyBatis 配置
+  mybatis:
+    mapper-locations: classpath*:mapper/*.xml
+    type-aliases-package: com.user.domain
+    configuration:
+      map-underscore-to-camel-case: true
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 打印 SQL（开发环境）
+
+# 服务器配置
+server:
+  port: 3012
+
+# 后端类型
+app:
+  be-type: Java
+
+# SpringDoc OpenAPI (Swagger) 配置
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+

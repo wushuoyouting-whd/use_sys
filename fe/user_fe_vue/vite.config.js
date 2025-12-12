@@ -1,6 +1,11 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+// 后端端口：
+//  nodejs：3011，
+//  java：3012
+const be_port = 3012;
+
 export default defineConfig({
   plugins: [vue()],
   server: {
@@ -8,18 +13,18 @@ export default defineConfig({
     proxy: {
       // 代理 API 请求
       '/api': {
-        target: 'http://localhost:3011',
+        target: `http://localhost:${be_port}`,
         changeOrigin: true,
         secure: false
       },
       // 代理 Swagger 相关请求
       '/swagger': {
-        target: 'http://localhost:3011',
+        target: 'http://localhost:${be_port}',
         changeOrigin: true,
         secure: false
       },
       '/swagger.json': {
-        target: 'http://localhost:3011',
+        target: 'http://localhost:${be_port}',
         changeOrigin: true,
         secure: false
       }
