@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-be-java
+    name: user_be_java
   
   # 数据库配置
   datasource:

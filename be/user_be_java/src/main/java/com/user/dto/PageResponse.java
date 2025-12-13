@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 分页响应 DTO
+ * DTO 的全称是 Data Transfer Object（数据传输对象）
  */
 @Data
 @NoArgsConstructor

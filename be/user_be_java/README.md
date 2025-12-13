@@ -2,6 +2,7 @@
 
 基于 Spring Boot + MyBatis 的企业级用户管理系统后端（Java 版本）
 
+
 ## 技术栈
 
 - **Spring Boot 3.2.0**
@@ -9,36 +10,36 @@
 - **PostgreSQL**
 - **SpringDoc OpenAPI (Swagger)**
 - **Lombok**
-- **Java 17**
+- **Java 21**
 
 ## 项目结构
 
 ```
 src/main/java/com/user/
 ├── UserApplication.java              # 主启动类
-├── config/                          # 配置类
-│   ├── MyBatisConfig.java         # MyBatis 配置
-│   └── WebConfig.java              # Web 配置（跨域等）
-├── controller/                      # 控制器层
-│   ├── UserController.java        # 用户控制器
-│   └── SysController.java         # 系统控制器
-├── service/                         # 服务层
-│   └── UserService.java           # 用户服务
-├── mapper/                          # MyBatis Mapper 接口
-│   └── UserMapper.java             # 用户 Mapper
-├── domain/                          # 实体类（领域模型）
-│   └── User.java                   # 用户实体
+├── config/                           # 配置类
+│   ├── MyBatisConfig.java              # MyBatis 配置
+│   └── WebConfig.java                  # Web 配置（跨域等）
+├── controller/                       # 控制器层
+│   ├── UserController.java             # 用户控制器
+│   └── SysController.java              # 系统控制器
+├── service/                          # 服务层
+│   └── UserService.java                # 用户服务
+├── mapper/                           # MyBatis Mapper 接口
+│   └── UserMapper.java                 # 用户 Mapper
+├── domain/                           # 实体类（领域模型）
+│   └── User.java                       # 用户实体
 ├── dto/                             # 数据传输对象
-│   ├── UserCreateDTO.java         # 创建用户 DTO
-│   ├── UserUpdateDTO.java         # 更新用户 DTO
-│   ├── UserQueryDTO.java          # 查询条件 DTO
-│   └── PageResponse.java          # 分页响应 DTO
+│   ├── UserCreateDTO.java              # 创建用户 DTO
+│   ├── UserUpdateDTO.java              # 更新用户 DTO
+│   ├── UserQueryDTO.java               # 查询条件 DTO
+│   └── PageResponse.java               # 分页响应 DTO
 ├── common/                          # 公共类
-│   ├── exception/                  # 异常处理
-│   │   ├── AppException.java      # 自定义异常
-│   │   └── GlobalExceptionHandler.java  # 全局异常处理器
-│   └── response/                   # 响应类
-│       └── ApiResponse.java       # 统一响应格式
+│   ├── exception/                   # 异常处理
+│   │   ├── AppException.java           # 自定义异常
+│   │   └── GlobalExceptionHandler.java # 全局异常处理器
+│   └── response/                    # 响应类
+│       └── ApiResponse.java            # 统一响应格式
 └── utils/                           # 工具类（预留）
 
 src/main/resources/
@@ -49,8 +50,9 @@ src/main/resources/
 
 ## 环境要求
 
-- JDK 17+
-- Maven 3.6+
+请注意JDK 和 Maven之间的版本的兼容性
+- JDK 21
+- Maven 3.9.11
 - PostgreSQL 12+
 
 ## 配置说明
@@ -60,9 +62,10 @@ src/main/resources/
 在 `src/main/resources/application.yml` 中配置数据库连接：
 
 ```yaml
+# 修改为自己的连接配置
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/user_db
+    url: jdbc:postgresql://localhost:5432/user_sys
     username: owen
     password: 123456
 ```
@@ -82,10 +85,10 @@ spring:
 
 ```yaml
 server:
-  port: 3012  # 服务器端口
+  port: 3012      # 服务器端口
 
 app:
-  be-type: Java  # 后端类型标识
+  be-type: Java   # 后端类型标识
 ```
 
 ## 运行项目
@@ -116,11 +119,11 @@ java -jar target/user-be-java-1.0.0.jar
 
 ### 用户管理接口
 
-- `GET /api/users` - 获取用户列表（支持分页和条件查询）
-- `GET /api/users/{id}` - 获取用户详情
-- `POST /api/users` - 创建用户
-- `PUT /api/users/{id}` - 更新用户
-- `DELETE /api/users/{id}` - 删除用户
+- `GET /api/users`          - 获取用户列表（支持分页和条件查询）
+- `GET /api/users/{id}`     - 获取用户详情
+- `POST /api/users`         - 创建用户
+- `PUT /api/users/{id}`     - 更新用户
+- `DELETE /api/users/{id}`  - 删除用户
 
 ### 系统接口
 

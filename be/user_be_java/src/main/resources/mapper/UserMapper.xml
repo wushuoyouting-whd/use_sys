@@ -87,14 +87,13 @@
         <include refid="Where_Clause"/>
     </select>
 
-    <!-- 插入用户 -->
+    <!-- 插入用户  COALESCE(#{createdAt}, CURRENT_TIMESTAMP),
+            COALESCE(#{updatedAt}, CURRENT_TIMESTAMP)-->
     <insert id="insert" parameterType="com.user.domain.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO "user" (
-            name, age, email, birth_date, be_type, created_at, updated_at
+            name, age, email, birth_date, be_type
         ) VALUES (
-            #{name}, #{age}, #{email}, #{birthDate}, #{beType}, 
-            COALESCE(#{createdAt}, CURRENT_TIMESTAMP), 
-            COALESCE(#{updatedAt}, CURRENT_TIMESTAMP)
+            #{name}, #{age}, #{email}, #{birthDate}, #{beType}
         )
     </insert>
 
@@ -106,7 +105,6 @@
             <if test="age != null">age = #{age},</if>
             <if test="email != null">email = #{email},</if>
             <if test="birthDate != null">birth_date = #{birthDate},</if>
-            <if test="beType != null">be_type = #{beType},</if>
             updated_at = CURRENT_TIMESTAMP
         </set>
         WHERE id = #{id}

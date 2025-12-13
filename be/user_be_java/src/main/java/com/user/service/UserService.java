@@ -90,8 +90,8 @@ public class UserService {
         BeanUtils.copyProperties(dto, user);
         user.setAge(dto.getAge() != null ? dto.getAge() : 0);
         user.setBeType(beType); // 设置后端类型
-        user.setCreatedAt(LocalDateTime.now());
-        user.setUpdatedAt(LocalDateTime.now());
+//        user.setCreatedAt(LocalDateTime.now());
+//        user.setUpdatedAt(LocalDateTime.now());
 
         userMapper.insert(user);
         return user;
@@ -119,7 +119,6 @@ public class UserService {
         user.setEmail(dto.getEmail());
         user.setAge(dto.getAge());
         user.setBirthDate(dto.getBirthDate());
-        user.setUpdatedAt(LocalDateTime.now());
 
         userMapper.updateById(user);
         return user;
